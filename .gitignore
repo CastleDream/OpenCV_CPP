@@ -1,0 +1,9 @@
+/lib
+*CMakeFiles
+*cmake
+*CMakeCache.txt
+*compile_commands.json
+*DisplayImageDebug.dSYM
+/latex/*.aux
+/latex/*.log
+/latex/*.synctex.gz

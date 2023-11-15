@@ -1,0 +1,31 @@
+% These lines tell TeXShop to typeset with xelatex, and to open
+% and save the source with Unicode encoding.
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+\documentclass[12pt]{article}
+\usepackage{fontspec}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx}
+\usepackage{amssymb}
+% Will Robertson's fontspec.sty can be used to simplify font choices.
+% To experiment, open /Applications/Font Book to examine the fonts
+% provided on Mac OS X, and change "Zapfino" to any of these choices.
+\usepackage{fontspec,xltxtra,xunicode}
+% \defaultfontfeatures{Mapping=tex-text}
+% \setromanfont[Mapping=tex-text]{Zapfino}
+\setmainfont[Mapping=tex-text]{Kaiti SC}   % {STSong}表示宋体
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
+\setmonofont[Scale=MatchLowercase]{Andale Mono}
+\title{Brief Article}
+\author{The Author}
+\begin{document}
+
+\maketitle 诗歌
+\paragraph{}
+醉后不知天在水，满船清梦压星河，\\
+忘了换行怎么写，测试错误,\\
+再试试，再试试，再试试\\
+安装好了再试试\\
+继续哦
+\end{document}

@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "__config": "cpp",
+        "ios": "cpp",
+        "streambuf": "cpp",
+        "istream": "cpp"
+    }
+}

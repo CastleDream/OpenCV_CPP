@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "OpenCV_tasks_pre",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-Wall",
+        "-g",
+        "-std=c++11",
+        "DisplayImage.cpp",
+        "-I/usr/local/include/opencv4",
+        "`pkg-config",
+        "--cflags",
+        "--libs",
+        "opencv4`",
+        "-o",
+        "${workspaceFolder}/DisplayImageDebug"
+      ]
+    },
+    {
+      "label": "CMake Build",
+      "type": "shell",
+      "command": "CMake",
+      "args": [
+        "-D",
+        "CMAKE_BUILD_TYPE=Debug",
+        ".."
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      },
+    },
+    {
+      "label": "Make Build",
+      "type": "shell",
+      "command": "make",
+      "args": [],
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      },
+    },
+    {
+      "label": "CMake_build_pre",
+      "dependsOn": [
+        "CMake Build",
+        "Make Build"
+      ]
+    }
+  ]
+}

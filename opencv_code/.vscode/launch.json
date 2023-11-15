@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "OpenCV_Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "targetArchitecture": "x86_64",
+            "program": "${workspaceFolder}/DisplayImageDebug",
+            // "program": "${workspaceFolder}/build/DisplayImage",
+            "args": [
+                "/Users/huangshan/Documents/DailyStudy/cpp/lib/opencv-4.8.0/samples/data/lena.jpg"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "additionalSOLibSearchPath": "/usr/local/lib",
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "OpenCV_tasks_pre"
+        }
+    ],
+    "version": "2.0.0"
+}
