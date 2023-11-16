@@ -1,7 +1,11 @@
 /* 直接用clang++运行
-clang++ -Wall -v -std=c++11 DisplayImage.cpp -I/usr/local/include/opencv4 `pkg-config --libs opencv4` -o DisplayImage
-/Users/huangshan/Documents/DailyStudy/cpp/opencv_code/build/DisplayImage \
-/Users/huangshan/Documents/DailyStudy/cpp/lib/opencv-4.8.0/samples/data/lena.jpg
+cd opencv_code/2.Opencv初探
+
+clang++ -Wall -v -std=c++11 2_1_displayImage.cpp \
+-I/usr/local/include/opencv4 `pkg-config --libs opencv4` \
+-o ../Execution/2_1_displayImage
+
+../Execution/2_1_displayImage （一个图片地址，例如：）/Users/huangshan/Documents/DailyStudy/cpp/lib/opencv-4.8.0/samples/data/lena.jpg
 */
 
 #include <iostream>
@@ -17,8 +21,6 @@ int main(int argc, char **argv)
     }
     Mat image;
     image = imread(argv[1], IMREAD_COLOR);
-
-    std::cout << "Image.size is " << image.size() << std::endl;
 
     if (!image.data)
     {

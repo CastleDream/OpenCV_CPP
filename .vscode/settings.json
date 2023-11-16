@@ -4,6 +4,11 @@
         "__config": "cpp",
         "ios": "cpp",
         "streambuf": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "regex": "cpp",
+        "fstream": "cpp",
+        "locale": "cpp",
+        "*.inc": "cpp",
+        "ostream": "cpp"
     }
 }

@@ -1,9 +1,13 @@
-/lib
+lib
 *CMakeFiles
 *cmake
 *CMakeCache.txt
 *compile_commands.json
 *DisplayImageDebug.dSYM
-/latex/*.aux
-/latex/*.log
-/latex/*.synctex.gz
+latex/*.aux
+latex/*.log
+latex/*.synctex.gz
+latex/*.fdb_latexmk
+latex/*.fls
+latex/*.out
+opencv_code/Execution
