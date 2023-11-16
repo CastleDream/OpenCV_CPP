@@ -2,7 +2,7 @@
 直接用clang++运行
 cd opencv_code/2.Opencv初探
 
-clang++ -Wall -v -std=c++11 2_3_readVideo.cpp \
+clang++ -Wall -v -std=c++11 2_4_trackBar.cpp \
 -I/usr/local/include/opencv4 `pkg-config --libs opencv4` \
 -o ../Execution/2_4_trackBar
 
@@ -51,7 +51,7 @@ static void on_trackbar(int pos, void *)
 
 int main(int argc, char **argv)
 {
-    cv::namedWindow("Example4");
+    cv::namedWindow("Example4", cv::WINDOW_GUI_EXPANDED);
     g_cap.open(argv[1]);
 
     // 获取读入视频的帧数和高宽（每帧的高宽都是一样的）
@@ -96,11 +96,13 @@ int main(int argc, char **argv)
         if (c == 's')
         {
             g_run = 1;
+            // g_run = 1, 程序只读取一张图片
             std::cout << "单步运行模式， run = " << g_run << std::endl;
         }
         if (c == 'r')
         {
             g_run = -1;
+            // g_run=-1, 逐次递减持续运行
             std::cout << "连续播放模式， run = " << g_run << std::endl;
         }
         if (c == 27) // ESC键
