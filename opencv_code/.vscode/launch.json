@@ -5,7 +5,7 @@
             "type": "cppdbg",
             "request": "launch",
             "targetArchitecture": "x86_64",
-            "program": "${workspaceFolder}/DisplayImageDebug",
+            "program": "${workspaceFolder}/DisplayImage",
             // "program": "${workspaceFolder}/build/DisplayImage",
             "args": [
                 "/Users/huangshan/Documents/DailyStudy/cpp/lib/opencv-4.8.0/samples/data/lena.jpg"
@@ -17,6 +17,22 @@
             "externalConsole": false,
             "MIMode": "lldb",
             "preLaunchTask": "OpenCV_tasks_pre"
+        },
+        {
+            "name": "OpenCV_2_5_Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "targetArchitecture": "x86_64",
+            "program": "${workspaceFolder}/Execution/2_5_simpleVideoPlayer",
+            "args": [
+                "${workspaceFolder}/Execution/demo.mp4"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "additionalSOLibSearchPath": "/usr/local/lib;/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include",
+            "externalConsole": false,
+            "MIMode": "lldb",
         }
     ],
     "version": "2.0.0"

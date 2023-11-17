@@ -1,20 +1,23 @@
-// 运行方式
-// cd <DisplayImage_directory>
-// cmake .
-// cmake -D CMAKE_PREFIX_PATH=/Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv .
-// make
-// 然后就可以指定一个图像路径去进行显示了 ./DisplayImage ../lib/opencv-4.8.0/samples/data/lena.jpg
+/* 运行方式
+cd <DisplayImage_directory>
+cmake .
+cmake -D CMAKE_PREFIX_PATH=/Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv .
+make
+然后就可以指定一个图像路径去进行显示了
 
-// /Users/huangshan/Documents/DailyStudy/cpp/opencv_code/build/DisplayImage
-// /Users/huangshan/Documents/DailyStudy/cpp/lib/opencv-4.8.0/samples/data/lena.jpg
+./DisplayImage ../lib/opencv-4.8.0/samples/data/lena.jpg
 
-// 运行示例程序
-// /Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/example_cpp_camshiftdemo
-// /Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/example_cpp_kmeans
+或者全都使用绝对路径
+/Users/huangshan/Documents/DailyStudy/cpp/opencv_code/build/DisplayImage
+/Users/huangshan/Documents/DailyStudy/cpp/lib/opencv-4.8.0/samples/data/lena.jpg
 
-// 直接用clang++运行
-// clang++ -Wall -v -std=c++11 DisplayImage.cpp -I/usr/local/include/opencv4 `pkg-config --libs opencv4` -o DisplayImage
+运行示例程序
+/Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/example_cpp_camshiftdemo
+/Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/example_cpp_kmeans
 
+直接用clang++运行
+clang++ -Wall -v -std=c++11 DisplayImage.cpp -I/usr/local/include/opencv4 `pkg-config --libs opencv4` -o DisplayImage
+*/
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
