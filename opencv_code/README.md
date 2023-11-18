@@ -18,12 +18,14 @@
 
 
 ## 代码内容说明
-`2`-1表示是`2`.Opencv初探中的代码
+`2`-x表示是`2`.Opencv初探中的代码
 ```
 .
 ├── 2_1_displayImage.cpp    // 读取显示图像
 ├── 2_2_openCamera.cpp      // 使用默认摄像头打开视频流
 ├── 2_3_readVideo.cpp       // 读取视频文件
 ├── 2_4_trackBar.cpp        // 添加滑动条控制视频文件读取（像个视频播放器）
+├── 2_5_simpleVideoPlayer.cpp // 添加左右方向键和空格键控制视频
+├── 2_6_directionKeyDetect.cpp // Windows/linux下检测方向键是否被按下
 └── temp.cpp                // 临时验证一些内容
 ```

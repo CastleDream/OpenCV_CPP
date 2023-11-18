@@ -8,14 +8,16 @@ clang++ -Wall -v -std=c++11 temp.cpp \
 
 ../Execution/temp
 */
-
 #include <iostream>
 #include <opencv2/opencv.hpp>
-int main()
-{
-    // std::cout << cv::getBuildInformation() << std::endl;
-    // Returns full configuration time cmake output
 
+void checkOpenCVBuildInfor()
+{
+    std::cout << cv::getBuildInformation() << std::endl;
+    // Returns full configuration time cmake output
+}
+void testKeyPress()
+{
     // https://answers.opencv.org/question/221876/cvwaitkey-not-reading-keyboard-input-properly/
 
     /*
@@ -38,5 +40,10 @@ int main()
         if (key > 0)
             std::cout << "key num is " << key << std::endl;
     }
+}
+
+int main()
+{
+    testKeyPress();
     return 0;
 }
