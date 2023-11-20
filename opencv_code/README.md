@@ -27,5 +27,8 @@
 ├── 2_4_trackBar.cpp        // 添加滑动条控制视频文件读取（像个视频播放器）
 ├── 2_5_simpleVideoPlayer.cpp // 添加左右方向键和空格键控制视频
 ├── 2_6_directionKeyDetect.cpp // Windows/linux下检测方向键是否被按下
+├── 2_7_directionKeyDetect.cpp // 包括高斯模糊，图像金字塔和边缘检测，获取某个像素值等
+├── 2_8_createVideo.cpp     // 转为对数极坐标、源视频和对应的RGB通道三个视角的视频
+├── 2_9_exercise.cpp        // 课后练习-滑动条控制下采样倍数
 └── temp.cpp                // 临时验证一些内容
 ```

@@ -6,6 +6,11 @@ clang++ -Wall -v -std=c++11 2_1_displayImage.cpp \
 -o ../Execution/2_1_displayImage
 
 ../Execution/2_1_displayImage （一个图片地址，例如：）/Users/huangshan/Documents/DailyStudy/cpp/lib/opencv-4.8.0/samples/data/lena.jpg
+
+运行示例程序
+/Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/example_cpp_camshiftdemo
+/Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/example_cpp_kmeans
+
 */
 
 #include <iostream>

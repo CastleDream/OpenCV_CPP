@@ -33,7 +33,26 @@
             "additionalSOLibSearchPath": "/usr/local/lib;/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include",
             "externalConsole": false,
             "MIMode": "lldb",
-        }
+        },
+        {
+            "name": "OpenCV_2_8_Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "targetArchitecture": "x86_64",
+            "program": "${workspaceFolder}//Execution/2_8_createVideo",
+            "args": [
+                "${workspaceFolder}/Execution/demo.mp4",
+                "${workspaceFolder}/Execution/rs.mp4",
+                "1"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "additionalSOLibSearchPath": "/usr/local/lib",
+            "externalConsole": false,
+            "MIMode": "lldb",
+            // "preLaunchTask": "OpenCV_tasks_pre"
+        },
     ],
     "version": "2.0.0"
 }
