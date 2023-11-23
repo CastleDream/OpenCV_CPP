@@ -30,5 +30,8 @@
 ├── 2_7_directionKeyDetect.cpp // 包括高斯模糊，图像金字塔和边缘检测，获取某个像素值等
 ├── 2_8_createVideo.cpp     // 转为对数极坐标、源视频和对应的RGB通道三个视角的视频
 ├── 2_9_exercise.cpp        // 课后练习-滑动条控制下采样倍数
+├── 3_1_BasicDataType.cpp   // 课后练习，mat,matx和vec的乘法，数据类型一致且必须是浮点数；以及数组的range访问等
+├── 3_2_compareMatTime.cpp  // cv::Mat和numpy array矩阵计算速度比较
+├── 3_2_compareNumpyTime.py 
 └── temp.cpp                // 临时验证一些内容
 ```
