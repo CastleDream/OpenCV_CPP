@@ -33,5 +33,11 @@
 ├── 3_1_BasicDataType.cpp   // 课后练习，mat,matx和vec的乘法，数据类型一致且必须是浮点数；以及数组的range访问等
 ├── 3_2_compareMatTime.cpp  // cv::Mat和numpy array矩阵计算速度比较
 ├── 3_2_compareNumpyTime.py 
+├── 4_1_Mat.cpp             // cv::Mat的step的含义，Mat的ptr的指针计算（Mat元素的内存地址计算），at访问
+├── 4_2_MatExpr.cpp         // 创建矩阵，at和ptr访问速度比较，ptr访问元素地址计算和头指针偏移
+├── 4_3_compareNAryMatIterator.cpp // NAryMatIterator和MatIterator类迭代器访问耗时比较，
+                                   // NAryMatIterator构造函数的第二种写法
+├── 4_4_NAryMatIteratorDemo.cpp  // NAryMatIterator构造函数的第一种写法，
+                                 // NAryMatIterator对多通道，多维度，不连续等的说明
 └── temp.cpp                // 临时验证一些内容
 ```

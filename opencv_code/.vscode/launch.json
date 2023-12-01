@@ -53,6 +53,20 @@
             "MIMode": "lldb",
             // "preLaunchTask": "OpenCV_tasks_pre"
         },
+        {
+            "name": "OpenCV_4_3_Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "targetArchitecture": "x86_64",
+            "program": "${workspaceFolder}//Execution/4_3_compareNAryMatIterator",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "additionalSOLibSearchPath": "/usr/local/lib",
+            "externalConsole": false,
+            "MIMode": "lldb",
+            // "preLaunchTask": "OpenCV_tasks_pre"
+        },
     ],
     "version": "2.0.0"
 }

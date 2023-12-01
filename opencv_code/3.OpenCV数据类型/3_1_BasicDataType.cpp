@@ -35,7 +35,7 @@ void test()
 
     cv::Matx31f m = {1, 2, 3};
     cv::Matx33f matx331f = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    cv::Matx31f matx31f = matx331f.diag();
+    cv::Matx31f matx31f = matx331f.diag(); // 把对角元素放到一个matx中
     // inline float &cv::Matx31f::operator()(int row, int col)
     /*
     template<typename _Tp, int m, int n> class Matx
@@ -49,6 +49,7 @@ void test()
     */
     std::cout << "diag output: \n"
               << matx31f(0, 0) << ", " << matx31f(1, 0) << ", " << matx31f(2, 0) << ", " << std::endl;
+    // 输出 2,5,8
 
     cv::Point begin(1, 2);
     cv::Size oneRec(1, 2);
