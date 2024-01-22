@@ -137,11 +137,17 @@ void test_at()
     // eye函数如果用于多通道类型，那么只会对第一个通道进行初始化，其余通道都是0
     std::cout << "Element (3,3) is " << m2.at<cv::Vec3f>(3, 3) << std::endl;
 }
+void test_bracket()
+{
+    cv::Mat_<cv::Vec<float, 1>> m(10, 10);
+    m = cv::Mat::eye(10, 10, CV_32FC1);
+    std::cout << "Element (3,3) is " << m(3, 3) << std::endl;
+}
 int main(int argc, char **argv)
 {
     // test_step();
-    test_address();
+    // test_address();
     // test_at();
-
+    test_bracket();
     return 0;
 }
