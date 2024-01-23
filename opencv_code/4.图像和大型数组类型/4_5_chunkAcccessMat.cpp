@@ -27,8 +27,24 @@ void compare_OPT()
     */
 }
 
+void compare_at_block()
+{
+
+    cv::Mat image = cv::imread("../Execution/lena.jpg", cv::IMREAD_COLOR);
+    std::cout << "cv::Mat的()重载" << std::endl;
+    std::cout << "调用at的输出结果: " << image.rowRange(0, 2) << std::endl;
+    std::cout << "operator()(Range rowRange,Range colRange) 输出结果: "
+              << image(cv::Range(0, 2), cv::Range::all()) << std::endl;
+
+    cv::Mat_<cv::Vec<u_char, 3>> image2;
+    image2 = cv::imread("../Execution/lena.jpg", cv::IMREAD_COLOR);
+    std::cout << "cv::Mat_<_Tp>的()重载" << std::endl;
+    std::cout << "调用at的输出结果: " << image.at<cv::Vec3b>(10, 10) << std::endl;
+    std::cout << "operator()(int row, int col) 输出结果: " << image2(10, 10) << std::endl;
+}
 int main(int argc, char **argv)
 {
-    compare_OPT();
+    // compare_OPT();
+    compare_at_block();
     return 0;
 }

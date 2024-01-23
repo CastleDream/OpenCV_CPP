@@ -39,6 +39,7 @@
                                    // NAryMatIterator构造函数的第二种写法
 ├── 4_4_NAryMatIteratorDemo.cpp  // NAryMatIterator构造函数的第一种写法，
                                  // NAryMatIterator对多通道，多维度，不连续等的说明
+├── 4_5_chunkAcccessMat.cpp     // cv::Mat_的括号重载和cv::Mat的括号重载，以及矩阵比较运算
 ├── 4_6_sparseMat.cp            // 稀疏矩阵的一些常见操作
 └── temp.cpp                // 临时验证一些内容
 ```
