@@ -11,6 +11,11 @@ clang++ -Wall -v -std=c++11 2_1_displayImage.cpp \
 /Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/example_cpp_camshiftdemo
 /Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/example_cpp_kmeans
 
+/Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/example_cpp_grabcut
+或者先cd 再运行
+cd /Users/huangshan/Documents/DailyStudy/cpp/lib/build_opencv/bin/
+./example_cpp_grabcut
+
 */
 
 #include <iostream>

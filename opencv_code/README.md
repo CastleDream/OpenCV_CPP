@@ -2,7 +2,9 @@
 
 ```bash
 .
-├── 2.Opencv初探  // 第二章的代码
+├── 2.Opencv初探     // 第二章的代码
+├── 3.OpenCV数据类型  // 第三章的代码
+├── 4.图像和大型数组类型  // 第四章的代码
 ├── README.md
 ├── CMakeLists.txt  //这下面的都是测试CMake编译以及clang进行debug的内容
 ├── DisplayImage
@@ -18,7 +20,7 @@
 
 
 ## 代码内容说明
-`2`-x表示是`2`.Opencv初探中的代码
+`2`-x表示是`2`.Opencv初探中的代码，以此类推
 ```
 .
 ├── 2_1_displayImage.cpp    // 读取显示图像
@@ -29,8 +31,8 @@
 ├── 2_6_directionKeyDetect.cpp // Windows/linux下检测方向键是否被按下
 ├── 2_7_directionKeyDetect.cpp // 包括高斯模糊，图像金字塔和边缘检测，获取某个像素值等
 ├── 2_8_createVideo.cpp     // 转为对数极坐标、源视频和对应的RGB通道三个视角的视频
-├── 2_9_exercise.cpp        // 课后练习-滑动条控制下采样倍数
-├── 3_1_BasicDataType.cpp   // 课后练习，mat,matx和vec的乘法，数据类型一致且必须是浮点数；以及数组的range访问等
+├── 2_9_exercise.cpp        // 第二章的课后练习-滑动条控制下采样倍数
+├── 3_1_BasicDataType.cpp   // 第三章的课后练习，mat,matx和vec的乘法，数据类型一致且必须是浮点数；以及数组的range访问等
 ├── 3_2_compareMatTime.cpp  // cv::Mat和numpy array矩阵计算速度比较
 ├── 3_2_compareNumpyTime.py 
 ├── 4_1_Mat.cpp             // cv::Mat的step的含义，Mat的ptr的指针计算（Mat元素的内存地址计算），at访问
@@ -40,6 +42,6 @@
 ├── 4_4_NAryMatIteratorDemo.cpp  // NAryMatIterator构造函数的第一种写法，
                                  // NAryMatIterator对多通道，多维度，不连续等的说明
 ├── 4_5_chunkAcccessMat.cpp     // cv::Mat_的括号重载和cv::Mat的括号重载，以及矩阵比较运算
-├── 4_6_sparseMat.cp            // 稀疏矩阵的一些常见操作
+├── 4_6_sparseMat.cpp           // 稀疏矩阵的一些常见操作
 └── temp.cpp                // 临时验证一些内容
 ```
