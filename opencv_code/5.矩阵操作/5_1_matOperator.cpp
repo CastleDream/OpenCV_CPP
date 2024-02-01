@@ -20,6 +20,8 @@ clang++ -Wall -v -std=c++11 5_1_matOperator.cpp \
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
+
+// 查看bitwise函数/~的取反原理
 void check_bitwise()
 {
     cv::Mat_<cv::Vec<uchar, 2>> test(3, 3, cv::Vec2b(0, 255));
@@ -50,6 +52,11 @@ void check_bitwise()
     */
     // cv::Mat c = !m;
     // std::cout << "c is " << b << std::endl;
+}
+
+// 查看函数calcCovarMatrix()的用法
+void check_calcCovarMatrix()
+{
 }
 int main(int argc, char **argv)
 {
