@@ -6,7 +6,7 @@
 ├── 3.OpenCV数据类型  // 第三章的代码
 ├── 4.图像和大型数组类型  // 第四章的代码
 ├── README.md
-├── CMakeLists.txt  //这下面的都是测试CMake编译以及clang进行debug的内容
+├── CMakeLists.txt  //这下面的都是测试CMake编译以及clang进行debug的内容,都被收纳到CMakeExample文件里了
 ├── DisplayImage
 ├── DisplayImage.cpp
 ├── DisplayImageDebug

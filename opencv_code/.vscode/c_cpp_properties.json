@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/local/include/opencv4**"
+            ],
+            "defines": [],
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-clang-x64"
+            // "configurationProvider": "ms-vscode.cmake-tools"
+            // 是因为采用了cmake-tools，才导致上面的includePath中的OpenCV无效的
+            // 之前整体打开cpp可以运行，是因为lib/opencv里有所有的.h文件，而并不是找到了配置的/usr/local/include/
+            // 参考：https://github.com/microsoft/vscode-cpptools/issues/9900
+            // 同时如果取消掉这行的注释，其实可以看到，命令行输出中的问题tab中的内容都来自于configurationProvider
+        }
+    ],
+    "version": 4
+}
