@@ -1,16 +1,21 @@
 {
     "configurations": [
         {
-            "name": "OpenCV_task",
-            "type": "lldb",
+            "name": "OpenCV_launch",
+            "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/Execution/${fileBasenameNoExtension}",
             "args": [
                 "${workspaceFolder}/Execution/demo.mp4"
             ],
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "OpenCV_tasks_pre"
+            "stopAtEntry": false,
+            "preLaunchTask": "OpenCV_task",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
         },
     ],
     "version": "2.0.0"
+    // https://stackoverflow.com/questions/63693235/getting-midebuggerpath-error-setting-up-vscode
 }

@@ -1,12 +1,4 @@
 /*
-@File    :   3_1_BasicDataType.cpp
-@Time    :   2023/11/21 10:07:41
-@Author  :   xxx
-@Version :   1.0
-@Contact :   XXX@outlook.com
-@License :   (C)Copyright 2023~
-@Desc    :   None
-
 切换到相应目录
 cd opencv_code/3.OpenCV数据类型
 

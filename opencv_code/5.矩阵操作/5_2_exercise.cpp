@@ -101,7 +101,7 @@ void exercise_6()
     cv::namedWindow("SubMiddle", cv::WINDOW_AUTOSIZE);
     cv::imshow("SubMiddle", channels[1]);
 
-    if (113 == cv::waitKey(0))
+    if (113 == cv::waitKey(0)) // q退出
     {
         cv::destroyAllWindows();
     }

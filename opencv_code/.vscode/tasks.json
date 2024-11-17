@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "OpenCV_tasks_pre",
+      "label": "OpenCV_task",
       "type": "shell",
       "command": "g++",
       "args": [

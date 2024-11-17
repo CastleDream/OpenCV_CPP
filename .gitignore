@@ -11,4 +11,3 @@ latex/*.fdb_latexmk
 latex/*.fls
 latex/*.out
 opencv_code/Execution
-.vscode
