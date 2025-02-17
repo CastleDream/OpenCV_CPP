@@ -48,3 +48,22 @@ char *getNewFilePath(char *originalPath, int i, char iEye)
     std::strcpy(result, newPath.c_str());
     return result;
 }
+
+
+/**
+ * @brief 排序函数(降序排列)。 未使用
+ *
+ * @tparam T: 模版类型
+ * @param v: 待排序的数组
+ * @return std::vector<int>： 原数组排序后的索引
+ */
+template <typename T>
+std::vector<int> sort_indexes_e(std::vector<T> &v)
+{
+    vector<int> idx(v.size());
+    std::iota(idx.begin(), idx.end(), 0);
+    std::sort(idx.begin(), idx.end(),
+              [&v](int i1, int i2)
+              { return v[i1] > v[i2]; });
+    return idx;
+}
