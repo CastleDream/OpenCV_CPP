@@ -1,0 +1,112 @@
+#include "all.h"
+#include "itkMultiplyImageFilter.h"
+#include "itkIntensityWindowingImageFilter.h"
+#include "itkImageRegionIterator.h"
+#include "itkTimeProbesCollectorBase.h"
+
+void convert2SpeedByRawFilter(const ShortImagePointer &image, FloatImagePointer &speed)
+{
+    using IntensityFilterType = itk::IntensityWindowingImageFilter<itk::Image<short, 3>, itk::Image<float, 3>>;
+    using FilterType = itk::MultiplyImageFilter<itk::Image<short, 3>, itk::Image<short, 3>, itk::Image<short, 3>>;
+
+    // 对图像乘以-1来进行反向
+    auto filter = FilterType::New();
+    filter->SetInput(image);
+    filter->SetConstant(-1);
+
+    auto intensityWindowing = IntensityFilterType::New();
+    // 设置输入图像的可见范围
+    intensityWindowing->SetWindowMinimum(-1024);
+    intensityWindowing->SetWindowMaximum(1024);
+    // 设置输出图像的输出范围，线性变换
+    intensityWindowing->SetOutputMinimum(0.0);
+    intensityWindowing->SetOutputMaximum(1.0);
+    // 完成的功能就是先把输入图像的-1024之外的变成0,1024之外的变成1，中间部分缩放到[0,1]
+    intensityWindowing->SetInput(filter->GetOutput());
+    intensityWindowing->Update();
+    speed = intensityWindowing->GetOutput();
+}
+
+void convert2SpeedByIterators(const ShortImagePointer &image, FloatImagePointer &speed)
+{
+    const itk::Image<short, 3>::SizeType inputSize = image->GetLargestPossibleRegion().GetSize();
+    itk::Image<float, 3>::RegionType region{{0, 0, 0}, inputSize};
+    speed->SetRegions(region);
+    speed->SetDirection(image->GetDirection());
+    speed->Allocate();
+    speed->FillBuffer(0.0f);
+
+    itk::ImageRegionIterator<itk::Image<short, 3>> imageIter(image, image->GetLargestPossibleRegion());
+    itk::ImageRegionIterator<itk::Image<float, 3>> speedIter(speed, speed->GetLargestPossibleRegion());
+    float replaceDiv2Multi = 1 / 1024.0;
+    for (imageIter.GoToBegin(), speedIter.GoToBegin(); !imageIter.IsAtEnd(); ++imageIter, ++speedIter)
+    {
+        short t = std::min(short(0), std::max(short(-1024), imageIter.Value()));
+        speedIter.Value() = (1024.0f - t) * replaceDiv2Multi - 1.0f + 0.1f;
+    }
+}
+
+/**
+ * @brief
+ * 测试相同功能，使用ITK原生的Filter快，还是采用手动Iterators的方式快
+ * https://blog.csdn.net/Castlehe/article/details/127491634
+ */
+void testRawFilterWithIterators()
+{
+    itk::TimeProbesCollectorBase m_timer;
+
+    // std::string imagePath = "/Users/huangshan/Documents/DailyStudy/brain/image.nii.gz";
+    std::string imagePath = "/Users/huangshan/Documents/All_Projects/b1_interactiveTubeSeg/deploy/data/region.nii.gz";
+    ShortImagePointer inputImage = readImage<short>(imagePath);
+
+    FloatImagePointer speedByRawFilter = itk::Image<float, 3U>::New();
+    FloatImagePointer speedByIterators = itk::Image<float, 3U>::New();
+
+    for (int i = 0; i < 10; i++)
+    {
+        m_timer.Start("RawFilterTime");
+        convert2SpeedByRawFilter(inputImage, speedByRawFilter);
+        m_timer.Stop("RawFilterTime");
+
+        m_timer.Start("IteratorsTime");
+        convert2SpeedByIterators(inputImage, speedByIterators);
+        m_timer.Stop("IteratorsTime");
+    }
+    saveImage<float>(speedByRawFilter, "/Users/huangshan/Documents/DailyStudy/cpp/ITK/data/speedByRawFilter.nii.gz");
+    saveImage<float>(speedByIterators, "/Users/huangshan/Documents/DailyStudy/cpp/ITK/data/speedByIterators.nii.gz");
+    m_timer.Report(std::cout);
+}
+/**
+对于 512*512*713 214.8MB的大图，
+System:              huangshandeMacBook-Pro.local
+Processor:           Intel(R) Core(TM) i5-8257U CPU @ 1.40GHz
+    Cache:           32768
+    Clock:           1400
+    Physical CPUs:   4
+    Logical CPUs:    8
+    Virtual Memory:  Total: 3072            Available: 1681
+    Physical Memory: Total: 8192            Available: 2499
+OSName:              macOS
+    Release:         13.2.1
+    Version:         22D68
+    Platform:        x86_64
+    Operating System is 64 bit
+ITK Version: 5.2.1
+
+Name Of Probe (Time)          Iterations     Total (s)      Min (s)        Mean (s)       Max (s)        StdDev (s)
+IteratorsTime                 10             64.144         5.79833        6.4144         9.1834         1.09771
+RawFilterTime                 10             48.9801        3.75677        4.89801        7.67313        1.39564
+ */
+
+/**
+对于 125*85*257 4.3MB的小图
+
+Name Of Probe (Time)          Iterations     Total (s)      Min (s)        Mean (s)       Max (s)        StdDev (s)
+IteratorsTime                 10             0.884679       0.0842559      0.0884679      0.097604       0.00398879
+RawFilterTime                 10             0.60102        0.050828       0.060102       0.0746241      0.00708452
+
+综上，
+- 用原生的Filters速度更快，图越大，速度差距越明显
+- 虽然用Iterators写看起来更直观
+
+*/

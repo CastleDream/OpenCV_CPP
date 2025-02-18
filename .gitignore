@@ -12,3 +12,5 @@ latex/*.fls
 latex/*.out
 opencv_code/Execution
 cppLearn/result
+ITK/build/*
+ITK/data/*
