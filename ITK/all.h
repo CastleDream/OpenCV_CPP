@@ -8,6 +8,7 @@
 typedef itk::Image<short, 3>::Pointer ShortImagePointer;
 typedef itk::Image<short, 3>::IndexType ShortIndex;
 typedef itk::Image<float, 3>::Pointer FloatImagePointer;
+typedef itk::Image<char, 3>::Pointer CharImagePointer;
 
 // 辅助函数
 template <typename T>
@@ -40,10 +41,14 @@ void convert2SpeedByRawFilter(const ShortImagePointer &image, FloatImagePointer 
 void convert2SpeedByIterators(const ShortImagePointer &image, FloatImagePointer &speed);
 void testRawFilterWithIterators();
 
-void getCandidatePathByPieceWise(const FloatImagePointer &speed,
-                                 const std::vector<ShortIndex> &seeds,
-                                 std::vector<ShortIndex> &pathes);
+std::vector<std::vector<ShortIndex>> getCandidatePathByPieceWise(const FloatImagePointer &speed,
+                                                                 const std::vector<ShortIndex> &seeds,
+                                                                 std::vector<ShortIndex> &pathes);
 void getCandidatePathByWhole(const FloatImagePointer &speed,
                              const std::vector<ShortIndex> &seeds,
                              std::vector<ShortIndex> &pathes);
-void testPieceWisePathOrWholeOnePath();
+void savePathMask(const std::vector<ShortIndex> &seeds,
+                  const std::vector<ShortIndex> &pathes,
+                  const FloatImagePointer &image,
+                  CharImagePointer &mask);
+bool testPieceWisePathOrWholeOnePath();
