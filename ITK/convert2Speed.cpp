@@ -4,6 +4,7 @@
 #include "itkImageRegionIterator.h"
 #include "itkTimeProbesCollectorBase.h"
 #include "itkChangeLabelImageFilter.h"
+#include "itkAddImageFilter.h"
 
 void convert2SpeedByRawFilter(const ShortImagePointer &image, FloatImagePointer &speed)
 {
@@ -23,8 +24,9 @@ void convert2SpeedByRawFilter(const ShortImagePointer &image, FloatImagePointer 
     intensityWindowing->SetOutputMinimum(0.0);
     intensityWindowing->SetOutputMaximum(1.0);
     intensityWindowing->SetInput(filter->GetOutput());
-    intensityWindowing->Update();
-    speed = intensityWindowing->GetOutput();
+
+    // intensityWindowing->Update();
+    // speed = intensityWindowing->GetOutput();
 
     // MinimalPath Extraction算法要求speed是[0,1]之间，靠近路径的地方越接近1越好，其他地方都是0最好，这样计算最快
     // 因此不需要和以前荣昊写的完全一致，不是范围在[0.1,1.1]之间
@@ -38,12 +40,12 @@ void convert2SpeedByRawFilter(const ShortImagePointer &image, FloatImagePointer 
     // speed = changeFilter->GetOutput();
 
     // 图像整体加上一个数字 https://examples.itk.org/src/filtering/imageintensity/addconstanttoeverypixel/documentation
-    // using AddImageFilterType = itk::AddImageFilter<itk::Image<float, 3>, itk::Image<float, 3>, itk::Image<float, 3>>;
-    // auto addImageFilter = AddImageFilterType::New();
-    // addImageFilter->SetInput(intensityWindowing->GetOutput());
-    // addImageFilter->SetConstant2(0.1);
-    // addImageFilter->Update();
-    // speed = addImageFilter->GetOutput();
+    using AddImageFilterType = itk::AddImageFilter<itk::Image<float, 3>, itk::Image<float, 3>, itk::Image<float, 3>>;
+    auto addImageFilter = AddImageFilterType::New();
+    addImageFilter->SetInput(intensityWindowing->GetOutput());
+    addImageFilter->SetConstant2(0.1);
+    addImageFilter->Update();
+    speed = addImageFilter->GetOutput();
 
     // speed需要设置origin是(0,0,0) spacing是(1,1,1)
     // https://itk.org/ITKSoftwareGuide/html/Book1/ITKSoftwareGuide-Book1ch4.html#x45-490004
