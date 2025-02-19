@@ -3,6 +3,7 @@
 #include "itkIntensityWindowingImageFilter.h"
 #include "itkImageRegionIterator.h"
 #include "itkTimeProbesCollectorBase.h"
+#include "itkChangeLabelImageFilter.h"
 
 void convert2SpeedByRawFilter(const ShortImagePointer &image, FloatImagePointer &speed)
 {
@@ -15,16 +16,41 @@ void convert2SpeedByRawFilter(const ShortImagePointer &image, FloatImagePointer 
     filter->SetConstant(-1);
 
     auto intensityWindowing = IntensityFilterType::New();
-    // 设置输入图像的可见范围
-    intensityWindowing->SetWindowMinimum(-1024);
+    // 设置输入图像的可见范围, 相当于只要黑色的部分
+    intensityWindowing->SetWindowMinimum(0);
     intensityWindowing->SetWindowMaximum(1024);
     // 设置输出图像的输出范围，线性变换
     intensityWindowing->SetOutputMinimum(0.0);
     intensityWindowing->SetOutputMaximum(1.0);
-    // 完成的功能就是先把输入图像的-1024之外的变成0,1024之外的变成1，中间部分缩放到[0,1]
     intensityWindowing->SetInput(filter->GetOutput());
     intensityWindowing->Update();
     speed = intensityWindowing->GetOutput();
+
+    // MinimalPath Extraction算法要求speed是[0,1]之间，靠近路径的地方越接近1越好，其他地方都是0最好，这样计算最快
+    // 因此不需要和以前荣昊写的完全一致，不是范围在[0.1,1.1]之间
+    // 需要将黑色背景的0加上一个小数， https://docs.itk.org/projects/doxygen/en/stable/classitk_1_1ChangeLabelImageFilter.html
+    // using ChangeLabelFilterType = itk::ChangeLabelImageFilter<itk::Image<float, 3>, itk::Image<float, 3>>;
+    // ChangeLabelFilterType::Pointer changeFilter = ChangeLabelFilterType::New();
+    // changeFilter->SetInput(intensityWindowing->GetOutput());
+    // changeFilter->SetChange(0.0f, 0.1f); // 将 0 替换为 0.1
+
+    // changeFilter->Update();
+    // speed = changeFilter->GetOutput();
+
+    // 图像整体加上一个数字 https://examples.itk.org/src/filtering/imageintensity/addconstanttoeverypixel/documentation
+    // using AddImageFilterType = itk::AddImageFilter<itk::Image<float, 3>, itk::Image<float, 3>, itk::Image<float, 3>>;
+    // auto addImageFilter = AddImageFilterType::New();
+    // addImageFilter->SetInput(intensityWindowing->GetOutput());
+    // addImageFilter->SetConstant2(0.1);
+    // addImageFilter->Update();
+    // speed = addImageFilter->GetOutput();
+
+    // speed需要设置origin是(0,0,0) spacing是(1,1,1)
+    // https://itk.org/ITKSoftwareGuide/html/Book1/ITKSoftwareGuide-Book1ch4.html#x45-490004
+    const itk::SpacePrecisionType spacing[3] = {1.0, 1.0, 1.0};
+    const itk::SpacePrecisionType origin[3] = {0.0, 0.0, 0.0};
+    speed->SetOrigin(origin);
+    speed->SetSpacing(spacing);
 }
 
 void convert2SpeedByIterators(const ShortImagePointer &image, FloatImagePointer &speed)
