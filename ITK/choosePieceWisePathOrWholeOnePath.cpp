@@ -54,7 +54,7 @@ std::vector<std::vector<ShortIndex>> getCandidatePathByPieceWise(const FloatImag
     pathFilter->SetInput(speed);
     pathFilter->SetCostFunction(cost);
     pathFilter->SetOptimizer(optimizer);
-    pathFilter->SetTerminationValue(0.1);
+    pathFilter->SetTerminationValue(0.2);
 
     // 5. Add path information
     // 在这里分段进行, 每两个点作为起始点，每段都作为一个路径, 测一下会不会默认多条路径一起算
@@ -204,7 +204,7 @@ void getCandidatePathByWhole(const FloatImagePointer &speed,
     pathFilter->SetInput(speed);
     pathFilter->SetCostFunction(cost);
     pathFilter->SetOptimizer(optimizer);
-    pathFilter->SetTerminationValue(0.1);
+    pathFilter->SetTerminationValue(0.2);
 
     // 5. Add path information
     using PathInformationType = PathFilterType::PathInformationType;
@@ -312,7 +312,10 @@ bool testPieceWisePathOrWholeOnePath()
 
     // 测试分段路径处理， 注释掉这部分就是正常的比较速度了
     // std::vector<std::vector<ShortIndex>> PieceWisePathes;
+    // m_timer.Start("pathesByPieceWise");
     // PieceWisePathes = getCandidatePathByPieceWise(inputImage, seeds, pathesByPieceWise);
+    // m_timer.Stop("pathesByPieceWise");
+    // m_timer.Report(std::cout);
     // CharImagePointer pathSeedsMask = itk::Image<char, 3>::New();
     // savePathMask(seeds, pathesByPieceWise, inputImage, pathSeedsMask);
     // saveImage<char>(pathSeedsMask, "/Users/huangshan/Documents/DailyStudy/cpp/ITK/data/pathSeedsMaskPieceWise.nii.gz");
@@ -321,10 +324,12 @@ bool testPieceWisePathOrWholeOnePath()
     std::vector<ShortIndex> pathesByWhole;
     for (int i = 0; i < 10; i++)
     {
+        pathesByPieceWise.clear();
         m_timer.Start("pathesByPieceWise");
         getCandidatePathByPieceWise(inputImage, seeds, pathesByPieceWise);
         m_timer.Stop("pathesByPieceWise");
 
+        pathesByWhole.clear();
         m_timer.Start("pathesByWhole");
         getCandidatePathByWhole(inputImage, seeds, pathesByWhole);
         m_timer.Stop("pathesByWhole");
@@ -337,7 +342,7 @@ bool testPieceWisePathOrWholeOnePath()
     }
 
     std::cout << "pathesByWhole" << std::endl;
-    for (int i = pathesByWhole.size() - 1; i > pathesByWhole.size() - 10; i--)
+    for (int i = pathesByWhole.size() - 1; i >= pathesByWhole.size() - 10; i--)
     {
         std::cout << "point " << i << " : [ {" << pathesByWhole[i][0] << "}, {" << pathesByWhole[i][1] << "}, {" << pathesByWhole[i][2] << "} ]" << std::endl;
     }
@@ -345,6 +350,55 @@ bool testPieceWisePathOrWholeOnePath()
     m_timer.Report(std::cout);
     return true;
 }
+
+/**这是第二次pathesByPieceWise中修改最终合并路径， pathesByWhole倒着索引的结果
+pathesByPieceWise
+point 0 : [ {94}, {30}, {226} ]
+point 1 : [ {94}, {30}, {225} ]
+point 2 : [ {94}, {30}, {224} ]
+point 3 : [ {94}, {30}, {223} ]
+point 4 : [ {94}, {30}, {222} ]
+point 5 : [ {94}, {30}, {221} ]
+point 6 : [ {94}, {30}, {220} ]
+point 7 : [ {94}, {30}, {219} ]
+point 8 : [ {94}, {30}, {218} ]
+point 9 : [ {94}, {30}, {217} ]
+pathesByWhole(很明显，PathFiler输出的路径点是不包含 起点和终点的，需要自己手动加上去)
+point 198 : [ {94}, {30}, {225} ]
+point 197 : [ {94}, {30}, {224} ]
+point 196 : [ {94}, {30}, {223} ]
+point 195 : [ {94}, {30}, {222} ]
+point 194 : [ {94}, {30}, {221} ]
+point 193 : [ {94}, {30}, {220} ]
+point 192 : [ {94}, {30}, {219} ]
+point 191 : [ {94}, {30}, {218} ]
+point 190 : [ {94}, {30}, {217} ]
+point 189 : [ {94}, {30}, {216} ]
+.. 这里少索引了一行，哈哈哈
+
+System:              huangshandeMacBook-Pro.local
+Processor:           Intel(R) Core(TM) i5-8257U CPU @ 1.40GHz
+    Cache:           32768
+    Clock:           1400
+    Physical CPUs:   4
+    Logical CPUs:    8
+    Virtual Memory:  Total: 3072            Available: 1116
+    Physical Memory: Total: 8192            Available: 2532
+OSName:              macOS
+    Release:         13.2.1
+    Version:         22D68
+    Platform:        x86_64
+    Operating System is 64 bit
+ITK Version: 5.2.1
+Name Of Probe (Time)          Iterations     Total (s)      Min (s)        Mean (s)       Max (s)        StdDev (s)
+pathesByPieceWise             10             62.5963        5.40107        6.25963        7.21937        0.668102
+pathesByWhole                 10             151.03         12.8025        15.103         16.467         1.35185
+
+依然还是分段速度快，但是依然还是很慢，哪怕把图变小了，很奇怪，198个点，5s？？
+
+和 b1_interactiveTubeSeg/deploy中的log信息差不多，就是5s左右
+ *
+ */
 
 /**
 这是一开始pathesByPieceWise中没有修改最终合并路径， pathesByWhole没有倒着索引的结果， 代码可以在github的提交记录看到
@@ -390,50 +444,4 @@ pathesByPieceWise             10             67.7279        6.09444        6.772
 pathesByWhole                 10             154.107        13.5495        15.4107        17.0222        1.24417
 
 所以分段路径确实会提速
- */
-
-/**这是第二次pathesByPieceWise中修改最终合并路径， pathesByWhole倒着索引的结果
-pathesByPieceWise
-point 0 : [ {94}, {30}, {226} ]
-point 1 : [ {94}, {30}, {225} ]
-point 2 : [ {94}, {30}, {224} ]
-point 3 : [ {94}, {30}, {223} ]
-point 4 : [ {94}, {30}, {222} ]
-point 5 : [ {94}, {30}, {221} ]
-point 6 : [ {94}, {30}, {220} ]
-point 7 : [ {94}, {30}, {219} ]
-point 8 : [ {94}, {30}, {218} ]
-point 9 : [ {94}, {30}, {217} ]
-pathesByWhole(很明显，PathFiler输出的路径点是不包含 起点和终点的，需要自己手动加上去)
-point 1989 : [ {94}, {30}, {225} ]
-point 1988 : [ {94}, {30}, {224} ]
-point 1987 : [ {94}, {30}, {223} ]
-point 1986 : [ {94}, {30}, {222} ]
-point 1985 : [ {94}, {30}, {221} ]
-point 1984 : [ {94}, {30}, {220} ]
-point 1983 : [ {94}, {30}, {219} ]
-point 1982 : [ {94}, {30}, {218} ]
-point 1981 : [ {94}, {30}, {217} ]
-.. 这里少索引了一行，哈哈哈
-
-System:              huangshandeMacBook-Pro.local
-Processor:           Intel(R) Core(TM) i5-8257U CPU @ 1.40GHz
-    Cache:           32768
-    Clock:           1400
-    Physical CPUs:   4
-    Logical CPUs:    8
-    Virtual Memory:  Total: 3072            Available: 1116
-    Physical Memory: Total: 8192            Available: 2532
-OSName:              macOS
-    Release:         13.2.1
-    Version:         22D68
-    Platform:        x86_64
-    Operating System is 64 bit
-ITK Version: 5.2.1
-Name Of Probe (Time)          Iterations     Total (s)      Min (s)        Mean (s)       Max (s)        StdDev (s)
-pathesByPieceWise             10             68.3469        6.11001        6.83469        7.36206        0.428661
-pathesByWhole                 10             163.002        15.4385        16.3002        17.6069        0.692102
-
-依然还是分段速度快，但是依然还是很慢，哪怕把图变小了，1900个点，6s
- *
  */
