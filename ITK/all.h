@@ -6,6 +6,7 @@
 #include "itkImageFileReader.h"
 
 typedef itk::Image<short, 3>::Pointer ShortImagePointer;
+typedef itk::Image<short, 3>::IndexType ShortIndex;
 typedef itk::Image<float, 3>::Pointer FloatImagePointer;
 
 // 辅助函数
@@ -38,3 +39,11 @@ typename itk::Image<T, 3>::Pointer readImage(std::string inputImagePath)
 void convert2SpeedByRawFilter(const ShortImagePointer &image, FloatImagePointer &speed);
 void convert2SpeedByIterators(const ShortImagePointer &image, FloatImagePointer &speed);
 void testRawFilterWithIterators();
+
+void getCandidatePathByPieceWise(const FloatImagePointer &speed,
+                                 const std::vector<ShortIndex> &seeds,
+                                 std::vector<ShortIndex> &pathes);
+void getCandidatePathByWhole(const FloatImagePointer &speed,
+                             const std::vector<ShortIndex> &seeds,
+                             std::vector<ShortIndex> &pathes);
+void testPieceWisePathOrWholeOnePath();

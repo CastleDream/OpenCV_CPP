@@ -4,6 +4,7 @@
 
 int main()
 {
-    testRawFilterWithIterators();
+    // testRawFilterWithIterators();
+    testPieceWisePathOrWholeOnePath();
     return 0;
 }
